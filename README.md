@@ -97,5 +97,5 @@ func main() int {
 - [ ] Compiler and VM supposed to be different things. (_vekvm {filename}.vek_ to run, _vek run/build_ - developer tool) 
 
 ## Acknowledgements
-This project was built using AI tools as an educational aid and coding assistant. 
-All architectural decisions, VM logic, and final debugging were done by the author.
+This project was built using AI tools as an educational aid and slight coding assistant. 
+All architectural decisions, most of the coding, VM logic, and final debugging were done by the author.
