@@ -15,7 +15,8 @@ All architectural decisions, VM logic, and final debugging were done by the auth
 **Vek Language** _is a fast, bytecode-compiled language with a custom VM_ (just like java with jvm)
 
 **Code that shows capabilities (run with `./main {filename}.vek`)**
-``
+
+```
 // functions that have params and return types
 func calculate_bonus(int score) int {
     let int bonus = 0;
