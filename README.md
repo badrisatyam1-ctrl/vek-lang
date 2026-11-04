@@ -6,11 +6,15 @@
 - [ ] CMake file
 - [ ] Compiler and VM supposed to be different things. (_vekvm {filename}.vek_ to run, _vek run/build_ - developer tool) 
 
+## Acknowledgements
+This project was built using AI tools as an educational aid and coding assistant. 
+All architectural decisions, VM logic, and final debugging were done by the author.
+
 # VEK language
 
-**Vek Language** _is a VM based language._ (just like java with jvm)
+**Vek Language** _is a fast, bytecode-compiled language with a custom VM_ (just like java with jvm)
 
-**Code that shows capabilities (run with `./main {filename}.vek`)
+**Code that shows capabilities (run with `./main {filename}.vek`)**
 ``
 // functions that have params and return types
 func calculate_bonus(int score) int {
@@ -30,7 +34,7 @@ func calculate_bonus(int score) int {
 
 func main() int {
     // Variables (void, bool, str, char, int/int64, int32, float/float32, float64)
-    let str title = "VekLang";
+    let str title = "VekLang"; // Type is NECESSARY.
     let bool is_awesome = true;
     
     sys::out(title);
