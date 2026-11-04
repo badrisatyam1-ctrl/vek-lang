@@ -16,7 +16,7 @@ All architectural decisions, VM logic, and final debugging were done by the auth
 
 **Code that shows capabilities (run with `./main {filename}.vek`)**
 
-```
+```vek
 // functions that have params and return types
 func calculate_bonus(int score) int {
     let int bonus = 0;
@@ -68,7 +68,7 @@ func main() int {
 
     ret 0;
 }
-``
+```
 
 ## Syntax:
 ```vek
