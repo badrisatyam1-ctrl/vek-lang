@@ -104,11 +104,14 @@ public:
             OpCode instruction = static_cast<OpCode>(bytecode.code[ip++]);
 
             switch(instruction) {
+                // Push
                 case OpCode::OP_CONSTANT: {
                     uint8_t constant_index = bytecode.code[ip++];
                     push(bytecode.constants[constant_index]);
                     break;
                 }
+
+                // Math
                 case OpCode::OP_ADD: {
                     Value b = pop(); Value a = pop();
                     if (holds_alternative<string>(a) || holds_alternative<string>(b) || holds_alternative<char>(a) || holds_alternative<char>(b)) {
@@ -141,6 +144,8 @@ public:
                     else push(mv.i_left / mv.i_right);
                     break;
                 }
+
+                // Logic
                 case OpCode::OP_GREATER_THAN: {
                     Value b = pop(); Value a = pop();
                     MathValues mv = extract_math_operands(a, b, "GREATER_THAN");
@@ -162,6 +167,8 @@ public:
                     else push(mv.i_left == mv.i_right);
                     break;
                 }
+
+                // Variables
                 case OpCode::OP_SAVE: {
                     uint8_t name_index = bytecode.code[ip++];
                     string var_name = get<string>(bytecode.constants[name_index]);
@@ -185,6 +192,8 @@ public:
                     pop();
                     break;
                 }
+
+                // Arrays
                 case OpCode::OP_NEW_ARRAY: {
                     Value sz_val = pop();
                     int64_t size = holds_alternative<int32_t>(sz_val) ? get<int32_t>(sz_val) : get<int64_t>(sz_val);
@@ -233,6 +242,8 @@ public:
                     push(popped);
                     break;
                 }
+
+                // Functions
                 case OpCode::OP_CALL: {
                     uint8_t name_index = bytecode.code[ip++];
                     uint8_t arg_count = bytecode.code[ip++];
@@ -251,6 +262,8 @@ public:
                     } else return;
                     break;
                 }
+
+                // Flow control
                 case OpCode::OP_JUMP: {
                     uint8_t high = bytecode.code[ip++];
                     uint8_t low = bytecode.code[ip++];
@@ -275,11 +288,15 @@ public:
                     }
                     break;
                 }
+
+                // System functions
                 case OpCode::OP_PRINT: {
                     Value val = pop();
                     std::cout << value_to_string(val) << "\n";
                     break;
                 }
+                
+                // End of code
                 case OpCode::OP_HALT: return;
                 default: throw std::runtime_error(prefix + "Unknown opcode");
             }
