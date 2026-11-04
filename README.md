@@ -1,15 +1,3 @@
-## TODO
-- [ ] Write a proper README.md 
-- [ ] Organize src .cpp files instead of using .hpp only
-- [ ] Add classes
-- [ ] Organize the code
-- [ ] CMake file
-- [ ] Compiler and VM supposed to be different things. (_vekvm {filename}.vek_ to run, _vek run/build_ - developer tool) 
-
-## Acknowledgements
-This project was built using AI tools as an educational aid and coding assistant. 
-All architectural decisions, VM logic, and final debugging were done by the author.
-
 # VEK language
 
 **Vek Language** _is a fast, bytecode-compiled language with a custom VM_ (just like java with jvm)
@@ -99,3 +87,15 @@ func main() int {
     ret num;
 }
 ```
+
+## TODO
+- [ ] Write a proper README.md 
+- [ ] Organize src .cpp files instead of using .hpp only
+- [ ] Add classes
+- [ ] Organize the code
+- [ ] CMake file
+- [ ] Compiler and VM supposed to be different things. (_vekvm {filename}.vek_ to run, _vek run/build_ - developer tool) 
+
+## Acknowledgements
+This project was built using AI tools as an educational aid and coding assistant. 
+All architectural decisions, VM logic, and final debugging were done by the author.
