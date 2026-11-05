@@ -2,9 +2,18 @@
 
 **Vek Language** _is a fast, bytecode-compiled language with a custom VM_ (just like java with jvm)
 
+**Language Features:**
+- [x] Variables & Math
+- [x] If/Else Control Flow
+- [x] Functions & Scopes
+- [x] Dynamic Arrays (`push`, `pop`)
+- [ ] `while` and `for` loops
+- [ ] Structs / Classes
+- [ ] String manipulation methods (`.length()`, `.split()`)
+
 **Code that shows capabilities (run with `./main {filename}.vek`)**
 
-```vek
+```
 // functions that have params and return types
 func calculate_bonus(int score) int {
     let int bonus = 0;
@@ -58,44 +67,14 @@ func main() int {
 }
 ```
 
-## Syntax:
-```vek
-// This file won't run. it's supposed to be a syntax orientation.
-load mainstream; // works just like #include or import
-
-class Test {
-    private {
-        let str name;
-        let str surname;
-    }
-
-    public {
-        name = "John";
-        surname = "Doe";
-
-        sys::out(name + " " + surname);   
-    }
-}
-
-func main() int {
-    let int num = 0 + 5;
-    num = 100;
-    let str string = "hi";
-
-    # Print + Return integer
-    sys::out(string);
-    ret num;
-}
-```
-
 ## TODO
-- [ ] Write a proper README.md 
-- [ ] Organize src .cpp files instead of using .hpp only
-- [ ] Add classes
-- [ ] Organize the code
-- [ ] CMake file
+- [ ] Organize src .cpp files instead of using .hpp only.
+- [ ] Add classes.
+- [ ] Implement while/for loops.
+- [ ] Organize the code.
+- [ ] CMake file.
 - [ ] Compiler and VM supposed to be different things. (_vekvm {filename}.vekbc_ to run, _vek run/build_ - developer tool) (turn .vekbc is a bytecode file, with magic, 3 bytes in header.)
 
 ## Acknowledgements
-This project was built using AI tools as an educational aid and slight coding assistant. 
-All architectural decisions, most of the coding, VM logic, and final debugging were done by the author.
+This project was built using AI tools as an occasional educational aid and a minor coding assistant (primarily for boilerplate and formatting). 
+The overall architecture, core compiler/VM design, implementation, and final debugging were entirely driven and executed by the author.

@@ -47,6 +47,7 @@ class Lexer {
     size_t start = 0;
     size_t current = 0;
 
+    // Helpers
     bool is_at_end() const { return current >= source.size(); }
 
     void skip_whitespace() {
@@ -124,8 +125,15 @@ class Lexer {
         return token;
     }
 
-    char peek() const { return is_at_end() ? '\0' : source[current]; }
-    char next() { return is_at_end() ? '\0' : source[current++]; }
+    char peek() const {
+        if(is_at_end()) { return '\0'; }
+        return source[current];
+    }
+
+    char next() {
+        if(is_at_end()) { return '\0'; }
+        return source[current++];
+    }
 public:
     explicit Lexer(const string& src) : source(src) {}
 

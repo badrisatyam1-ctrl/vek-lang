@@ -1,4 +1,9 @@
+/*
+Lot's of section headers just for visual 
+*/
+
 #pragma once
+
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -24,6 +29,7 @@ private:
     unordered_map<string, Type> function_return_types;
     unordered_map<string, Type> variable_types;
 
+    // Helpers
     Type token_to_type(TokenType t) {
         switch(t) {
             case TokenType::INT32: return Type::INT32;
@@ -63,12 +69,15 @@ private:
         return false;
     }
 
+    // Overwrites placeholder jump address with the destination address
     void patch_jump(Bytecode& bytecode, size_t jump_index, size_t target) {
         bytecode.code[jump_index] = (target >> 8) & 0xFF;
         bytecode.code[jump_index + 1] = target & 0xFF;
     }
 
+    // Compilers
     void compile_stmt(Stmt* stmt, Bytecode& bytecode) {
+        // Blocks (braces)
         if (auto* block = dynamic_cast<BlockStmt*>(stmt)) {
             for (const auto& s : block->statements) {
                 compile_stmt(s.get(), bytecode);
@@ -76,6 +85,7 @@ private:
             return;
         }
 
+        // If/else
         if (auto* if_stmt = dynamic_cast<IfStmt*>(stmt)) {
             compile_expr(if_stmt->condition.get(), bytecode, Type::BOOL);
             
@@ -98,7 +108,12 @@ private:
             }
             return;
         }
+        
+        /// *******************************************************
+        /// TODO: Implement a while/for loops.
+        /// *******************************************************
 
+        // Declaration
         if (auto* var_decl = dynamic_cast<VarDecl*>(stmt)) {
             Type declared_type = token_to_type(var_decl->type);
             variable_types[var_decl->name] = var_decl->is_array ? Type::ARRAY : declared_type;
@@ -151,7 +166,7 @@ private:
                 }
 
                 if (!handled) {
-                    throw std::runtime_error(prefix + "Cannot infer array size. Provide [N] or an initializer.");
+                    throw std::runtime_error(prefix + "Array size error. Provide [N] or an initializer.");
                 }
             } else {
                 compile_expr(var_decl->initializer.get(), bytecode, declared_type);
@@ -168,6 +183,7 @@ private:
             return;
         }
         
+        // Assigning (Array or Variable)
         if (auto* assign_stmt = dynamic_cast<AssignStmt*>(stmt)) {
             if (auto* var = dynamic_cast<VariableExpr*>(assign_stmt->target.get())) {
                 Type target_type = variable_types.count(var->name) ? variable_types[var->name] : Type::UNKNOWN;
@@ -236,12 +252,16 @@ private:
             bytecode.write((uint8_t)OpCode::OP_LOAD); bytecode.write((uint8_t)idx);
             return variable_types.count(var->name) ? variable_types[var->name] : Type::UNKNOWN;
         }
+
+        // Arrays
         if (auto* arr_access = dynamic_cast<ArrayAccessExpr*>(expr)) {
             compile_expr(arr_access->array.get(), bytecode);
             compile_expr(arr_access->index.get(), bytecode, Type::INT64);
             bytecode.write((uint8_t)OpCode::OP_GET_INDEX);
             return Type::UNKNOWN;
         }
+
+        // Functions/Methods
         if (auto* method_call = dynamic_cast<MethodCallExpr*>(expr)) {
             compile_expr(method_call->object.get(), bytecode, Type::ARRAY);
             for (const auto& arg : method_call->arguments) {
@@ -266,6 +286,7 @@ private:
             bytecode.write((uint8_t)OpCode::OP_CALL); bytecode.write((uint8_t)name_idx); bytecode.write((uint8_t)call->arguments.size());
             return function_return_types.count(call->name) ? function_return_types[call->name] : Type::UNKNOWN;
         }
+
         if (auto* bin = dynamic_cast<BinaryExpr*>(expr)) {
             Type left_type = compile_expr(bin->left.get(), bytecode, expected_type);
             Type right_type = compile_expr(bin->right.get(), bytecode, expected_type);
@@ -277,7 +298,7 @@ private:
                 case TokenType::SLASH: bytecode.write((uint8_t)OpCode::OP_DIVIDE); break;
                 case TokenType::GREATER_THAN: bytecode.write((uint8_t)OpCode::OP_GREATER_THAN); break;
                 case TokenType::LESS_THAN: bytecode.write((uint8_t)OpCode::OP_LESS_THAN); break;
-                case TokenType::EQUALS: bytecode.write((uint8_t)OpCode::OP_EQUAL); break; // Assuming EQUALS is also ==
+                case TokenType::EQUALS: bytecode.write((uint8_t)OpCode::OP_EQUAL); break;
                 default: throw std::runtime_error(prefix + "Unknown binary operator");
             }
             return Type::UNKNOWN;

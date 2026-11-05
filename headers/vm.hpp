@@ -37,6 +37,7 @@ private:
         return val;
     }
 
+    // Helpers
     string value_to_string(const Value& v) {
         if (holds_alternative<string>(v)) return get<string>(v);
         if (holds_alternative<char>(v)) return string(1, get<char>(v));
