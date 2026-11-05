@@ -21,7 +21,7 @@
 - [ ] String manipulation methods (`.length()`, `.split()`)
   
 **Code that shows capabilities (run with `./main {filename}.vek`)**
-```js
+```cpp
 // functions that have params and return types
 func calculate_bonus(int score) int {
     let int bonus = 0;
