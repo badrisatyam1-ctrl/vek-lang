@@ -1,7 +1,7 @@
 # VEK language
 
 **Vek Language** _is a fast, bytecode-compiled language with a custom VM_ (just like java with jvm)
-
+  
 **Language Features:**
 - [x] Variables & Math
 - [x] If/Else Control Flow
@@ -10,9 +10,8 @@
 - [ ] `while` and `for` loops
 - [ ] Structs / Classes
 - [ ] String manipulation methods (`.length()`, `.split()`)
-
+  
 **Code that shows capabilities (run with `./main {filename}.vek`)**
-
 ```
 // functions that have params and return types
 func calculate_bonus(int score) int {
