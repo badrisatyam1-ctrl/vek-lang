@@ -15,6 +15,7 @@
 - [x] If/Else Control Flow
 - [x] Functions & Scopes
 - [x] Dynamic Arrays (`push`, `pop`)
+- [ ] `&&` and `||`
 - [ ] `while` and `for` loops
 - [ ] Structs / Classes
 - [ ] String manipulation methods (`.length()`, `.split()`)
@@ -40,11 +41,11 @@ func calculate_bonus(int score) int {
 func main() int {
     // Variables (void, bool, str, char, int/int64, int32, float/float32, float64)
     let str title = "VekLang"; // Type is NECESSARY.
-    let bool is_awesome = true;
+    let bool is_good = true;
     
     sys::out(title);
     sys::out("Is VekLang good?");
-    sys::out(is_awesome);
+    sys::out(is_good);
 
     // Dynamic arrays
     let int scores[] = {90, 45, 85}; // Also `let int scores[3] = {90, 45, 85}` - COMPLETELY SAME!!
