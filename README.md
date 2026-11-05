@@ -8,13 +8,11 @@
 
 ![demo](https://github.com/user-attachments/assets/4cc4a84d-66de-484e-90d9-a2a4c8d13456)
 
----
-  
-**Language Features:**
+### Language Features
 - [x] Variables & Math
 - [x] If/Else Control Flow
 - [x] Functions & Scopes
-- [x] Dynamic Arrays (`push`, `pop`)
+- [x] Dynamic Arrays (`push`, `pop`, indexing)
 - [ ] `&&` and `||`
 - [ ] `while` and `for` loops
 - [ ] Structs / Classes
@@ -48,7 +46,7 @@ func main() int {
     sys::out(is_good);
 
     // Dynamic arrays
-    let int scores[] = {90, 45, 85}; // Also `let int scores[3] = {90, 45, 85}` - COMPLETELY SAME!!
+    let int scores[] = {90, 45, 85}; // Also `let int scores[3] = {90, 45, 85}` - completely same.
     sys::out("Original Array:");
     sys::out(scores);
 
