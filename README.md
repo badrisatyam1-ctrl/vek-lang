@@ -1,6 +1,12 @@
-# VEK language
+# VekLang
 
-**Vek Language** _is a fast, bytecode-compiled language with a custom VM_ (just like java with jvm)
+![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)
+![Language](https://img.shields.io/badge/Language-C%2B%2B17-purple.svg)
+![Type](https://img.shields.io/badge/Type-Bytecode%20VM-success.svg)
+
+**Vek** is a fast, statically-typed, bytecode-compiled programming language with its own custom stack-based Virtual Machine (similar to Java and the JVM). It is designed to be simple, bridging the syntax of C++ and Java with some of the flexibility seen in JavaScript.
+
+---
   
 **Language Features:**
 - [x] Variables & Math
