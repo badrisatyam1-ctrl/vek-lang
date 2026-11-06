@@ -41,33 +41,33 @@ func main() int {
     let str title = "VekLang"; // Type is NECESSARY.
     let bool is_good = true;
     
-    sys::out(title);
-    sys::out("Is VekLang good?");
-    sys::out(is_good);
+    print(title);
+    print("Is VekLang good?");
+    print(is_good);
 
     // Dynamic arrays
     let int scores[] = {90, 45, 85}; // Also `let int scores[3] = {90, 45, 85}` - completely same.
-    sys::out("Original Array:");
-    sys::out(scores);
+    print("Original Array:");
+    print(scores);
 
     // Array methods (push and pop)
     scores.push(100);
     let int popped = scores.pop(); 
     
-    sys::out("We pushed 100 and popped it. The popped value is:");
-    sys::out(popped);
+    print("We pushed 100 and popped it. The popped value is:");
+    print(popped);
 
     // Array indexing
     let int first_score = scores[0];
-    sys::out("The first score is:");
-    sys::out(first_score);
+    print("The first score is:");
+    print(first_score);
 
     // Custom function using array data
     let int my_bonus = calculate_bonus(first_score);
-    sys::out("Bonus points earned:");
-    sys::out(my_bonus);
+    print("Bonus points earned:");
+    print(my_bonus);
 
-    sys::out("EOF");
+    print("EOF");
 
     ret 0;
 }

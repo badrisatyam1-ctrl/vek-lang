@@ -41,6 +41,14 @@ private:
         if (check(TokenType::FUNC)) return parse_function();
         if (check(TokenType::IF)) return parse_if();
         
+        if (match(TokenType::PRINT)) {
+            consume(TokenType::LPAREN, "Expected '(' after 'print'");
+            auto expr = parse_expression();
+            consume(TokenType::RPAREN, "Expected ')' after print expression");
+            consume(TokenType::SEMICOLON, "Expected ';'");
+            return make_unique<PrintStmt>(move(expr));
+        }
+
         if (check(TokenType::RET)) {
             consume(TokenType::RET, "Expected 'ret'");
             unique_ptr<Expr> value = nullptr;
@@ -50,23 +58,6 @@ private:
         }
 
         if (check(TokenType::LBRACE)) return parse_block();
-
-        if (check(TokenType::IDENTIFIER)) {
-            Token name = tokens[current];
-            if (name.text == "sys") {
-                current++;
-                consume(TokenType::COLON_COLON, "Expected '::'");
-                Token func = consume(TokenType::IDENTIFIER, "Expected function name");
-                if (func.text == "out") {
-                    consume(TokenType::LPAREN, "Expected '('");
-                    auto expr = parse_expression();
-                    consume(TokenType::RPAREN, "Expected ')'");
-                    consume(TokenType::SEMICOLON, "Expected ';'");
-                    return make_unique<PrintStmt>(move(expr));
-                }
-                throw std::runtime_error("Unknown system function");
-            }
-        }
 
         auto expr = parse_expression();
         if (match(TokenType::EQUALS)) {

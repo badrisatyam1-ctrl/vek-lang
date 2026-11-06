@@ -20,6 +20,7 @@ inline const unordered_map<std::string, TokenType> keywords = {
     
     {"if", TokenType::IF}, 
     {"else", TokenType::ELSE},
+    {"print", TokenType::PRINT},
 
     {"int32", TokenType::INT32},
     {"int64", TokenType::INT64},

@@ -11,7 +11,7 @@ class Test {
         name = "John";
         surname = "Doe";
 
-        sys::out(name + " " + surname);   
+        print(name + " " + surname);   
     }
 }
 
@@ -21,6 +21,6 @@ func main() int {
     let str string = "hi";
 
     # Print + Return integer
-    sys::out(string);
+    print(string);
     ret num;
 }
