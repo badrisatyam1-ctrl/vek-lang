@@ -69,10 +69,11 @@ struct VarDecl : Stmt {
     TokenType type;
     string name;
     bool is_array;
+    bool is_const;
     unique_ptr<Expr> array_size;
     unique_ptr<Expr> initializer;
-    VarDecl(TokenType t, string n, bool is_arr, unique_ptr<Expr> size, unique_ptr<Expr> init)
-        : type(t), name(move(n)), is_array(is_arr), array_size(move(size)), initializer(move(init)) {}
+    VarDecl(TokenType t, string n, bool is_arr, bool is_c, unique_ptr<Expr> size, unique_ptr<Expr> init)
+            : type(t), name(move(n)), is_array(is_arr), is_const(is_c), array_size(move(size)), initializer(move(init)) {}
 };
 
 struct AssignStmt : Stmt {

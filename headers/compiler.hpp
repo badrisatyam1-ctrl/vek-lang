@@ -28,6 +28,7 @@ private:
     unordered_map<string, FuncDecl*> functions;
     unordered_map<string, Type> function_return_types;
     unordered_map<string, Type> variable_types;
+    unordered_map<string, bool> is_constant;
 
     // Helpers
     Type token_to_type(TokenType t) {
@@ -117,6 +118,7 @@ private:
         if (auto* var_decl = dynamic_cast<VarDecl*>(stmt)) {
             Type declared_type = token_to_type(var_decl->type);
             variable_types[var_decl->name] = var_decl->is_array ? Type::ARRAY : declared_type;
+            is_constant[var_decl->name] = var_decl->is_const;
 
             if (var_decl->is_array) {
                 bool handled = false;
@@ -186,6 +188,11 @@ private:
         // Assigning (Array or Variable)
         if (auto* assign_stmt = dynamic_cast<AssignStmt*>(stmt)) {
             if (auto* var = dynamic_cast<VariableExpr*>(assign_stmt->target.get())) {
+                // const check
+                if (is_constant[var->name]) {
+                    throw std::runtime_error(prefix + "Cannot reassign constant variable '" + var->name + "'");
+                }
+
                 Type target_type = variable_types.count(var->name) ? variable_types[var->name] : Type::UNKNOWN;
                 compile_expr(assign_stmt->value.get(), bytecode, target_type);
                 int name_index = bytecode.add_const(var->name);

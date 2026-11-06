@@ -15,6 +15,8 @@ using std::string;
 
 inline const unordered_map<std::string, TokenType> keywords = {
     {"let", TokenType::LET},
+    {"const", TokenType::CONST},
+
     {"func", TokenType::FUNC},
     {"ret", TokenType::RET},
     

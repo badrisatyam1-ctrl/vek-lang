@@ -37,7 +37,10 @@ private:
     }
 
     unique_ptr<Stmt> parse_statement() {
-        if (check(TokenType::LET)) return parse_declaration();
+        if (check(TokenType::LET) || check(TokenType::CONST)) {
+            return parse_declaration();
+        }
+        
         if (check(TokenType::FUNC)) return parse_function();
         if (check(TokenType::IF)) return parse_if();
         
@@ -138,7 +141,14 @@ private:
     }
 
     unique_ptr<Stmt> parse_declaration() {
-        consume(TokenType::LET, "Expected 'let'");
+        bool is_const = false;
+        
+        if (match(TokenType::CONST)) {
+            is_const = true;
+        } else {
+            consume(TokenType::LET, "Expected 'let' or 'const'");
+        }
+
         TokenType type = parse_type();
         Token name = consume(TokenType::IDENTIFIER, "Expected a variable name");
         
@@ -159,7 +169,7 @@ private:
         }
         
         consume(TokenType::SEMICOLON, "Expected ';'");
-        return make_unique<VarDecl>(type, name.text, is_array, move(array_size), move(initializer));
+        return make_unique<VarDecl>(type, name.text, is_array, is_const, move(array_size), move(initializer));
     }
 
     unique_ptr<Expr> parse_expression() {
