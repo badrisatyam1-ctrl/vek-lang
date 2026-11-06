@@ -195,16 +195,31 @@ public:
                         auto it = keywords.find(lower);
                         if (it != keywords.end()) tok.type = it->second;
                         tokens.push_back(tok);
-                    }
-                    else if(std::isdigit(c)) {
+                    } else if(std::isdigit(c)) {
                         number();
-                        if (source.substr(start, current - start).find('.') != string::npos) {
+                        
+                        bool is_f32 = false;
+                        bool is_f64 = false;
+
+                        // d or f, for explicit type too
+                        if (peek() == 'f' || peek() == 'F') {
+                            next();
+                            is_f32 = true;
+                        } else if (peek() == 'd' || peek() == 'D') {
+                            next();
+                            is_f64 = true;
+                        }
+
+                        if (is_f32) {
+                            tokens.push_back(make_token(TokenType::FLOAT32_LITERAL));
+                        } else if (is_f64) {
+                            tokens.push_back(make_token(TokenType::FLOAT64_LITERAL));
+                        } else if (source.substr(start, current - start).find('.') != string::npos) {
                             tokens.push_back(make_token(TokenType::FLOAT64_LITERAL));
                         } else {
                             tokens.push_back(make_token(TokenType::INT64_LITERAL));
                         }
-                    }
-                    else { throw std::runtime_error("Unexpected character."); }
+                    } else { throw std::runtime_error("Unexpected character."); }
                     break;
             }
         }

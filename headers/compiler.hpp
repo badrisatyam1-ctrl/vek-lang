@@ -239,6 +239,11 @@ private:
             bytecode.write((uint8_t)OpCode::OP_CONSTANT); bytecode.write((uint8_t)idx);
             return Type::FLOAT64;
         }
+        if (auto* f32 = dynamic_cast<Float32Literal*>(expr)) {
+            int idx = bytecode.add_const(static_cast<float>(f32->value));
+            bytecode.write((uint8_t)OpCode::OP_CONSTANT); bytecode.write((uint8_t)idx);
+            return Type::FLOAT32;
+        }
         if (auto* b = dynamic_cast<BoolLiteral*>(expr)) {
             int idx = bytecode.add_const(b->value);
             bytecode.write((uint8_t)OpCode::OP_CONSTANT); bytecode.write((uint8_t)idx);

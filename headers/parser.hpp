@@ -221,8 +221,26 @@ private:
     }
 
     unique_ptr<Expr> parse_primary() {
-        if (match(TokenType::INT64_LITERAL)) return make_unique<Int64Literal>(std::stoll(previous().text));
-        if (match(TokenType::FLOAT64_LITERAL)) return make_unique<Float64Literal>(std::stod(previous().text));
+        if (match(TokenType::INT64_LITERAL)) {
+            return make_unique<Int64Literal>(std::stoll(previous().text));
+        }
+        
+        if (match(TokenType::FLOAT64_LITERAL)) {
+            string text = previous().text;
+            if (!text.empty() && (text.back() == 'd' || text.back() == 'D')) {
+                text.pop_back();
+            }
+            return make_unique<Float64Literal>(std::stod(text));
+        }
+
+        if (match(TokenType::FLOAT32_LITERAL)) {
+            string text = previous().text;
+            if (!text.empty() && (text.back() == 'f' || text.back() == 'F')) {
+                text.pop_back();
+            }
+            return make_unique<Float32Literal>(std::stof(text));
+        }
+        
         if (match(TokenType::BOOL_LITERAL)) return make_unique<BoolLiteral>(previous().text == "true");
         if (match(TokenType::STR_LITERAL)) return make_unique<StringLiteral>(previous().text);
         if (match(TokenType::CHAR_LITERAL)) return make_unique<CharLiteral>(previous().text[0]);
